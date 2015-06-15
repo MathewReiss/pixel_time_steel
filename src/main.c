@@ -237,19 +237,19 @@ void handle_init(void) {
 	app_message_open(32,32);
 	app_message_register_inbox_received(inbox);
 	
-	time_t seed = time(NULL);
-	srand(seed);
-	struct tm *now = localtime(&seed);
-	tick(now, MINUTE_UNIT);
-	
-	tick_timer_service_subscribe(MINUTE_UNIT, tick);
-	
 	my_window = window_create();
 
   custom_layer = layer_create(GRect(0, 0, 144, 168));
   layer_set_update_proc(custom_layer, draw);
 	layer_add_child(window_get_root_layer(my_window), custom_layer);
 	window_stack_push(my_window, true);
+	
+	time_t seed = time(NULL);
+	srand(seed);
+	struct tm *now = localtime(&seed);
+	tick(now, MINUTE_UNIT);
+	
+	tick_timer_service_subscribe(MINUTE_UNIT, tick);	
 }
 
 void handle_deinit(void) {
